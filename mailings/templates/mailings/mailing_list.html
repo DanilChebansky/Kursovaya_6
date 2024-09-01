@@ -1,0 +1,36 @@
+
+{% extends "mailings/base.html" %}
+{% load media_shower %}
+{% block content %}
+<p class="text-center">
+    <a class="btn btn-lg btn-block btn-outline-success" href = '{% url "mailings:mailing_create" %}' role="button">Создать рассылку</a>
+</p>
+{% for object in object_list %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Рассылка сообщения {{ object.message.head }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <li>{% if object.period == 1 %}
+                                Period - {{ object.period }} minute
+                            {% else %}
+                            Period - {{ object.period }} minutes
+                            {% endif %}</li>
+                            <li>Status - {{ object.status }}</li>
+                        </ul>
+                        {% if perms.mailings.can_view_mailing_detail or user == object.owner or user.is_superuser %}
+                        <a class="btn my-2 btn-lg btn-block btn-outline-success" href = '{% url "mailings:mailing_detail" object.pk %}' role="button">Посмотреть</a>
+                        {% endif %}
+                        {% if perms.mailings.set_active or user == object.owner or user.is_superuser %}
+                        <a class="btn my-2 btn-lg btn-block btn-outline-primary" href = '{% url "mailings:mailing_update" object.pk %}' role="button">Редактировать</a>
+                        {% endif %}
+                        {% if user == object.owner or user.is_superuser %}
+                        <a class="btn my-2 btn-lg btn-block btn-outline-danger" href = '{% url "mailings:mailing_delete" object.pk %}' role="button">Удалить</a>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+{% endfor %}
+{% endblock %}

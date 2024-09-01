@@ -1,0 +1,42 @@
+{% extends 'mailings/base.html'%}
+{% block content %}
+{% load media_shower %}
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Сервис управления рассылками</h1>
+        <p class="lead text-muted">С помощью нашего сервиса вы можете создать email-рассылку для своих клиентов.</p>
+        <div class="col-6">
+            <div class="card" style="width: 36rem;">
+                <div class="card-header"><h5>Статистика рассылок</h5></div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Всего рассылок - {{all_mailings}}</li>
+                    <li class="list-group-item">Активных рассылок - {{active_mailings}}</li>
+                    <li class="list-group-item">Уникальных клиентов для рассылок - {{active_clients}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            {% for object in random_blogs %}
+            <div class="col-4">
+                <div class="card shadow-sm">
+                    <img src="{% mymedia object.preview  %}">
+                    <div class="card-body">
+                        <p class="card-text">
+                        <h2>{{ object.title}}</h2>
+                        <p class="card-text">Содержание: {{ object.body }}</p>
+                        <p class="card-text"> Создана {{ object.created_at }}</p>
+                        <p class="card-text">Просмотры- {{ object.views_count }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

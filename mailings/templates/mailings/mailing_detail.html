@@ -1,0 +1,45 @@
+{% extends "mailings/base.html" %}
+{% load media_shower %}
+{% block content %}
+
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Рассылка cообщения {{ object.message.head }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <li>
+                                <ul>List of clients:
+                                    {% for client in client_lst %}
+                                    <li>{{ client }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li>{% if object.period == 1 %}
+                                Period - {{ object.period }} minute
+                            {% else %}
+                            Period - {{ object.period }} minutes
+                            {% endif %}</li>
+                            <li>Status - {{ object.status }}</li>
+                        </ul>
+                        <a class="btn my-2 btn-lg btn-block btn-outline-primary" href = '{% url "mailings:mailing_list" %}' role="button">Обратно</a>
+                    </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Список попыток этой рассылки</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            {% for attempt in attempt_list %}
+                            <li>{{attempt.attempt_time}} --- {{attempt}} --- {{attempt.server_answer}}</li>
+                            {% endfor %}
+                        </ul>
+                        <a class="btn my-2 btn-lg btn-block btn-outline-primary" href = '{% url "mailings:mailing_list" %}' role="button">Обратно</a>
+                    </div>
+            </div>
+        </div>
+{% endblock %}

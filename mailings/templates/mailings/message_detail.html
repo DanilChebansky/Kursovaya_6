@@ -1,0 +1,19 @@
+{% extends "mailings/base.html" %}
+{% load media_shower %}
+{% block content %}
+
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{ object.head }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <li>Body - {{ object.body }}</li>
+                        </ul>
+                        <a class="btn my-2 btn-lg btn-block btn-outline-primary" href = '{% url "mailings:message_list" %}' role="button">Обратно</a>
+                    </div>
+            </div>
+        </div>
+
+{% endblock %}
